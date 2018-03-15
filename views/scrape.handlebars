@@ -1,0 +1,26 @@
+{{>header}}
+  <div id="wrapper">
+        <div class="container">
+            <h1>{{title}}</h1>
+            <div class="content">
+            <!-- News section -->
+                <div class="row">
+                    {{#each items}}
+                    <div class="col-xs-2 boxsize">
+                            <div class="thumbnail">
+                                    <img src="{{img}}">
+                                    <div class="caption" style='text-align: center'>
+                                       <a href='{{link}}'>{{headline}}</a><br>
+                                       {{summary}}</div>
+                                     <form action="/saved{{this._id}}" method ="post">
+                                        <button class= "btn btn-primary" type="submit" value="{{this.isSaved}}" id="save">SAVED ARTICLE</button>
+                                     </form>
+                            </div>
+                    </div> 
+                    {{/each}}                 
+                </div><!-- End row -->
+                
+            </div>
+        </div>
+       
+    </div>

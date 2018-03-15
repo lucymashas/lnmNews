@@ -1,0 +1,60 @@
+{{>header}}
+  <div id="wrapper">
+    <div class="container">
+      <h1>{{title}}</h1>
+      <div class="content">
+        <!-- News section -->
+        <div class="row">
+          {{#each items}}
+            <div class="col-md-12 divarea">
+                <div class="header"><a href='{{link}}'>{{headline}}</a>
+                    <div class="btn-group" role="group" aria-label="Button Group">
+                      <div id="notesbtn">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#notesModal">Write A Note</button>
+                      </div>
+                      <form action="/delete{{this._id}}" method="post"></form>
+                          <button type="submit" class="btn btn-warning btn-sm">Delete Article</button>
+                      </form>
+                    </div>
+                </div>
+                    <p>{{summary}}</p>
+                    
+              </div>
+              {{/each}}                 
+        </div><!-- End row -->
+      </div>
+    </div>
+    <!-- Notes Modal -->
+    <div class="modal" id="notesModal">
+      <div class="modal-dialog">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <p>Notes For Article:  {{this._id}}
+                 </p>
+                 <span class="close" data-dismiss="modal" id="closewindow">&times;</span>
+              </div>  <!-- end modal header -->
+	
+             
+                  <!-- Display Notes Container -->
+            <div class="modal-body" id="displaynotes" > 
+                   <!-- delete alert Message -->
+               {{!-- <div id = "alertmsg" class="alert alert-danger alert-dismissable">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              </div> --}}
+              <form action = "/notes" method="post"></form>
+                {{#each items}}
+                <div id="prevnotes">{{note}}No Previous Notes</div>
+                {{/each}}
+                <div id="notes1">
+                <textarea type="text" rows= 3 type="textarea" id="notesContainer" placeholder="Click here to enter note ..." value="notesinfo"></textarea>
+                </div>
+                <div class="modal-footer">
+                   <button type="submit" class="btn btn-primary btn-sm">SAVE NOTE</button>
+                </form>
+              </div>
+
+                  </div>  <!-- end of modal header -->
+          </div> <!-- end of modal content -->
+      </div> <!-- end of modal dialog -->
+    </div>
+  </div>

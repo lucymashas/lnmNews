@@ -6,6 +6,7 @@ var HeadlineSchema = new Schema({
   headline: {
     type: String,
     trim: true,
+    unique: true,
     required: true
   },
   link:{
@@ -15,6 +16,14 @@ var HeadlineSchema = new Schema({
   summary:{
     type:String,
     required: true
+  },
+  img:{
+    type: String,
+    default: "assets/images/image-placeholder.png"
+  },
+  issaved:{
+    type:Boolean,
+    default: false
   },
   note:{
     type: Schema.Types.ObjectId,
