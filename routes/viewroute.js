@@ -24,7 +24,7 @@ module.exports = function(app) {
         var $=cheerio.load(html);
         
         $(".gs-c-promo").each(function(i,element){
-          var image = $(this).find(".gs-o-responsive-image");
+          var image = $(this).find(".gs-c-promo-image img").attr("src");
           var link= $(this).find(".gs-c-promo-body a").attr("href");
           var heading= $(this).find(".gs-c-promo-heading__title").text();
           var summary= $(this).find(".gs-c-promo-summary").text();
@@ -116,5 +116,6 @@ module.exports = function(app) {
         res.json(err);
       });
       console.log("completed");
+      res.redirect("/saved");
   });
 }

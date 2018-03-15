@@ -41,16 +41,16 @@
                {{!-- <div id = "alertmsg" class="alert alert-danger alert-dismissable">
                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
               </div> --}}
-              <form action = "/notes" method="post"></form>
+              <form action = "/notes{{this._id}}" method="post">
                 {{#each items}}
-                <div id="prevnotes">{{note}}No Previous Notes</div>
+                <div id="prevnotes">{{note}}</div>
                 {{/each}}
                 <div id="notes1">
                 <textarea type="text" rows= 3 type="textarea" id="notesContainer" placeholder="Click here to enter note ..." value="notesinfo"></textarea>
                 </div>
                 <div class="modal-footer">
-                   <button type="submit" class="btn btn-primary btn-sm">SAVE NOTE</button>
-                </form>
+                   <button type="submit" class="btn btn-primary btn-sm" id="saveNote">SAVE NOTE</button>
+              </form>
               </div>
 
                   </div>  <!-- end of modal header -->
