@@ -19,7 +19,7 @@ module.exports = function(app) {
   });
 
     //Scrape the bbc website for top stories
-    app.get("/scrape",function(req,result){
+    app.post("/scrape",function(req,result){
       request("http://www.bbc.com/news",function(error,res,html){
 
         var $=cheerio.load(html);
@@ -47,13 +47,13 @@ module.exports = function(app) {
               })
           }
         });
-        result.redirect('/articles');
+        result.redirect('/home');
       });
     });
   
 
     // Route for getting all Articles from the db
-    app.get("/articles", function(req, res) {
+    app.get("/home", function(req, res) {
       // Grab every document in the Articles collection
       db.Headline.find({})
         .then(function(data) {
