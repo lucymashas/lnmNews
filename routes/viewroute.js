@@ -116,13 +116,12 @@ app.get("/articles/:id", function(req, res) {
     });
 });
 
-    app.post("/notes:id",function(req,res){
+    app.post("/submitNote",function(req,res){
       db.Note.create(req.body)
         .then (function(dbNote){
-          return db.Headline.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+          return db.Headline.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
         })
         .then(function(dbHeadline) {
-         // If we were able to successfully update an Article, send it back to the client
           res.json(dbHeadline);
         })
         .catch(function(err) {
@@ -130,6 +129,10 @@ app.get("/articles/:id", function(req, res) {
           res.json(err);
        });
 });
+
+
+
+
 
 
   app.get("/deleteAll", function(req, res) {

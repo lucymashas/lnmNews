@@ -11,9 +11,9 @@
                 <div class="header">
                    <h3><a href='{{link}}'>{{headline}}</a></h3>
                     <div class="btn-group" role="group" aria-label="Button Group">
-                      <div id="notesbtn">
-                        <button type="button" class="btn btn-primary btnsm" data-toggle="modal" data-target="#notesModal">Write A Note</button>
-                      </div>
+                      {{!-- <div id="notesbtn"> --}}
+                        <button type="button" class="btn btn-primary btnsm" data-toggle="modal" data-target="#notesModal" id="notesbtn">Write A Note</button>
+                      {{!-- </div> --}}
                       
                       <form action="/delete{{this._id}}" method="post">
                           <button type="submit" class="btn btn-warning btnsm">Delete Article</button>
@@ -41,12 +41,13 @@
                    <h3>Notes For Article:{{this._id}}</h3>
                     <span class="close" data-dismiss="modal" id="closewindow">&times;</span>
               </div>  <!-- end modal header -->
-       
+
                   <!-- Display Notes Container -->
              <div class="modal-body" id="displaynotes" > 
                   
                     <div id="prevnotes">No Previous Notes</div>
-                    <form action = "/notes{{this._id}}" method="post">
+
+                    <form action = "/submitNote{{this._id}}" method="post">
                         <div>
                           <textarea type="text" rows= 3 type="textarea" id="notesContainer" placeholder="Click here to enter note ..." value="notesinfo"></textarea>
                         </div>
