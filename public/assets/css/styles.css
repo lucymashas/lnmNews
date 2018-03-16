@@ -1,3 +1,13 @@
+/* Navbar */
+.navbar{
+  font-size:1.3rem;
+  font-family: 'Lora', serif;
+}
+.hd-brand{
+  padding-left:25px;
+  width:300px;
+}
+
 /* scrape styles */
 .content {
   padding: 40px;
@@ -35,6 +45,9 @@ p{
 }
 
 /* buttons */
+.btn{
+  color:#FAFBFB;
+}
 .btnsm {
   line-height: .30;
   border-radius: 1px;
@@ -51,34 +64,40 @@ p{
   right:0px;
   display: -webkit-inline-box;
 }
+/* home page */
+.jumbotronImg{
+  background-image: url(../images/jumboimg.png);
+  background-size: cover;
+}
+.jumbotron{
+  border-radius: .1rem;
+  padding: 8em;
+}
+h1 {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .1em;
+  font-size: 4.5rem;
+  color: #D4D8DC;
+}
+h2 {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .1em;
+  font-size: 1.5rem;
+  color: #5C718E;
+}
+/* Saved Styles */
+.header{
+  width:100%;
+  height:50px;
+  background-color:#D5D4D4;
+}
 
-    .jumbotronImg{
-      background-image: url(../public/assets/images/jumboimg.png);
-      background-size: cover;
-    }
-    .jumbotron{
-      border-radius: .1rem;
-      padding: 8em;
-    }
-    .hd-brand{
-      padding-left:25px;
-      width:300px;
-    }
 
-  
 .divarea{
   margin-top:10px;
   padding: 0;
   border:1px solid #ccc;
 }
-.header{
-  width:100%;
-  height:50px;
-  background-color:#ccc;
-}
-
-
-
 /* Modal Elements */
 .modal-content {
   width: 600px;

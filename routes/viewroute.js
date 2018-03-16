@@ -57,10 +57,8 @@ module.exports = function(app) {
       // Grab every document in the Articles collection
       db.Headline.find({})
         .then(function(data) {
-          // If we were able to successfully find Articles, send them back to the client
-            // res.json(data);
             var hbsObject = {items:data}
-            res.render('scrape', hbsObject);
+            res.render('home', hbsObject);
         })
         .catch(function(err) {
           // If an error occurred, send it to the client
