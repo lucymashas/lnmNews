@@ -66,6 +66,7 @@ module.exports = function(app) {
         });
     });
 
+//Route for getting all saved articles
     app.get("/saved",function(req,res){
       db.Headline.find({issaved:true})
       .then(function(data){
@@ -74,6 +75,7 @@ module.exports = function(app) {
       })
     })
     
+//Route for saving an article
     app.post("/saved:id", function(req, res) {
      db.Headline.findById(req.params.id, function(err, data) {
         if (!data.issaved) {
@@ -88,8 +90,8 @@ module.exports = function(app) {
       });
     });
     
+  //Route for deleting a save article  
     app.post("/delete:id",function(req,res){
-      console.log(req.params.id);
       db.Headline.remove({_id:req.params.id})
         .catch (function(err){
           res.json(err);
@@ -97,6 +99,22 @@ module.exports = function(app) {
         console.log("deleted");
         res.redirect("/saved");
     });
+
+// Route for grabbing a specific Article by id, populate it with it's note
+app.get("/articles/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Headline.findOne({ _id: req.params.id })
+    // ..and populate all of the notes associated with it
+    .populate("note")
+    .then(function(dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbHeadline);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
 
     app.post("/notes:id",function(req,res){
       db.Note.create(req.body)
