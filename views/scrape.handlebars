@@ -4,16 +4,16 @@
             <h1>{{title}}</h1>
             <div class="content">
             <!-- News section -->
-                <div class="row">
+                <div class="row rowalign">
                     {{#each items}}
                     <div class="col-xs-2 boxsize">
                             <div class="thumbnail">
                                     <img src="{{img}}">
                                     <div class="caption" style='text-align: center'>
-                                       <a href='{{link}}'>{{headline}}</a><br>
-                                       {{summary}}</div>
+                                       <h3><a href='{{link}}'>{{headline}}</a></h3>
+                                       <p>{{summary}}</p></div>
                                      <form action="/saved{{this._id}}" method ="post">
-                                        <button class= "btn btn-primary" type="submit" value="{{this.isSaved}}" >SAVED ARTICLE</button>
+                                        <button class= "btn btnsm btn-primary btnpos" type="submit" value="{{this.isSaved}}" >SAVED ARTICLE</button>
                                      </form>
                             </div>
                     </div> 

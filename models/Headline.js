@@ -19,7 +19,6 @@ var HeadlineSchema = new Schema({
   },
   img:{
     type: String,
-    default: "assets/images/image-placeholder.png"
   },
   issaved:{
     type:Boolean,

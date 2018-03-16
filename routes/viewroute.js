@@ -21,13 +21,20 @@ module.exports = function(app) {
     //Scrape the bbc website for top stories
     app.get("/scrape",function(req,result){
       request("http://www.bbc.com/news",function(error,res,html){
+
         var $=cheerio.load(html);
         
         $(".gs-c-promo").each(function(i,element){
-          var image = $(this).find(".gs-c-promo-image img").attr("src");
+          var image=$(this).find(".gs-o-responsive-image img").attr("data-src");
+          if (!image){
+            image=('assets/images/image-placeholder.png');
+          }
           var link= $(this).find(".gs-c-promo-body a").attr("href");
           var heading= $(this).find(".gs-c-promo-heading__title").text();
           var summary= $(this).find(".gs-c-promo-summary").text();
+        //replacing {width} in the image string
+        image = image.replace("{width}",240);
+
           //  // Pass the data into a Handlebars object and then render it
           var article = {headline:heading,link:link,summary:summary,img:image}
           if (heading && link && summary){

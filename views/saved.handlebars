@@ -7,13 +7,14 @@
         <div class="row">
           {{#each items}}
             <div class="col-md-12 divarea">
-                <div class="header"><a href='{{link}}'>{{headline}}</a>
+                <div class="header">
+                   <h3><a href='{{link}}'>{{headline}}</a></h3>
                     <div class="btn-group" role="group" aria-label="Button Group">
                       <div id="notesbtn">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#notesModal">Write A Note</button>
+                        <button type="button" class="btn btn-primary btnsm" data-toggle="modal" data-target="#notesModal">Write A Note</button>
                       </div>
                       <form action="/delete{{this._id}}" method="post"></form>
-                          <button type="submit" class="btn btn-warning btn-sm">Delete Article</button>
+                          <button type="submit" class="btn btn-warning btnsm">Delete Article</button>
                       </form>
                     </div>
                 </div>
