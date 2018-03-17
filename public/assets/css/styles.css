@@ -2,10 +2,14 @@
 .navbar{
   font-size:1.3rem;
   font-family: 'Lora', serif;
+  box-shadow: 4px 4px 1px #5C718E;
 }
 .hd-brand{
   padding-left:25px;
   width:300px;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(18, 1, 1, 0.74);
 }
 
 /* scrape styles */
@@ -87,6 +91,12 @@ h2 {
   font-family: 'Oswald', sans-serif;
   letter-spacing: .1em;
   font-size: 1.5rem;
+  color: #5C718E;
+}
+h4 {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .1em;
+  font-size: 1.3rem;
   color: #5C718E;
 }
 /* Saved Styles */

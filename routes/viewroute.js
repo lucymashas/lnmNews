@@ -48,6 +48,7 @@ module.exports = function(app) {
           var summary= $(this).find(".gs-c-promo-summary").text();
         //replacing {width} in the image string
         image = image.replace("{width}",240);
+        link = "http://www.bbc.com/" + link;
 
        // Pass the data into a Handlebars object and then render it
         var article = {headline:heading,link:link,summary:summary,img:image}
@@ -110,22 +111,23 @@ app.get("/articles/:id", function(req, res) {
     db.Headline.findOne({_id:req.params.id})
     //mongoose populate notes
       .populate("note")
-      .then(function(dbHeadline) {
-      var hbsObject ={notes:data}
-      res.render('saved',hbsObject);
-    })
-   .catch(function(err){
-     console.log("error message");
-   });
+      .exec(function(err,data){
+      })
+    //   .then(function(data) {
+    //     console.log(data);
+    //     var hbsObject ={notes:data}
+    //     res.render('saved',hbsObject);
+    // })
+    // .catch(function(err){
+    //   console.log("error message" ,err);
+    //   });
   });
 
 
     app.post("/submitNote:id",function(req,res){
+      console.log(req.body);
       db.Note.create(req.body)
         .then (function(dbNote){
-        db.Headline.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
-        })
-        .then(function(dbHeadline) {
           res.redirect("/saved");
         })
         .catch(function(err) {
