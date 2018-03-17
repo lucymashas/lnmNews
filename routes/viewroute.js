@@ -35,8 +35,8 @@ module.exports = function(app) {
         //replacing {width} in the image string
         image = image.replace("{width}",240);
 
-          //  // Pass the data into a Handlebars object and then render it
-          var article = {headline:heading,link:link,summary:summary,img:image}
+       // Pass the data into a Handlebars object and then render it
+        var article = {headline:heading,link:link,summary:summary,img:image}
           if (heading && link && summary){
             db.Headline.create(article)
               .then(function(dbHeadline){
@@ -53,7 +53,7 @@ module.exports = function(app) {
   
 
     // Route for getting all Articles from the db
-    app.get("/home", function(req, res) {
+    app.get("/home", function(req, res){
       // Grab every document in the Articles collection
       db.Headline.find({})
         .then(function(data) {
@@ -72,19 +72,19 @@ module.exports = function(app) {
       .then(function(data){
         var hbsObject ={items:data}
         res.render('saved',hbsObject);
-      })
-    })
+      });
+    });
     
 //Route for saving an article
-    app.post("/saved:id", function(req, res) {
-     db.Headline.findById(req.params.id, function(err, data) {
-        if (!data.issaved) {
+    app.post("/saved:id", function(req, res){
+      db.Headline.findById(req.params.id, function(err, data){
+        if (!data.issaved){
           db.Headline.update({ _id: req.params.id }, {$set: {issaved: true}}, 
-               function(err, data) {
+            function(err, data) {
             res.redirect("/saved");
           });
         }
-        else {
+        else{
           console.log("saved already");
         }
       });
@@ -101,28 +101,29 @@ module.exports = function(app) {
     });
 
 // Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
-  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+app.get("/articles:id", function(req, res) {
+  // Using the id passed in the id parameter
   db.Headline.findOne({ _id: req.params.id })
     // ..and populate all of the notes associated with it
     .populate("note")
-    .then(function(dbArticle) {
-      // If we were able to successfully find an Article with the given id, send it back to the client
+    .then(function(dbHeadline) {
       res.json(dbHeadline);
     })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
-});
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+    })
+  });
 
-    app.post("/submitNote",function(req,res){
+
+    app.post("/submitNote:id",function(req,res){
+      console.log(req.body);
       db.Note.create(req.body)
         .then (function(dbNote){
           return db.Headline.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
         })
         .then(function(dbHeadline) {
-          res.json(dbHeadline);
+          res.redirect("/saved");
         })
         .catch(function(err) {
          // If an error occurred, send it to the client
@@ -133,7 +134,7 @@ app.get("/articles/:id", function(req, res) {
 
 
 
-
+// To Clean Out the db during testing
 
   app.get("/deleteAll", function(req, res) {
     db.Headline.remove({})

@@ -9,14 +9,14 @@
           {{#each items}}
             <div class="col-md-12 divarea">
                 <div class="header">
-                   <h3><a href='{{link}}'>{{headline}}</a></h3>
+                   <h3 data-id="{{_id}}"><a href='{{link}}'>{{headline}}</a></h3>
                     <div class="btn-group" role="group" aria-label="Button Group">
                       {{!-- <div id="notesbtn"> --}}
                         <button type="button" class="btn btn-primary btnsm" data-toggle="modal" data-target="#notesModal" id="notesbtn">Write A Note</button>
                       {{!-- </div> --}}
                       
                       <form action="/delete{{this._id}}" method="post">
-                          <button type="submit" class="btn btn-warning btnsm">Delete Article</button>
+                          <button type="submit" class="btn warning btnsm">Delete Article</button>
                       </form>
 
                     </div>
@@ -38,7 +38,7 @@
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                   <h3>Notes For Article:{{this._id}}</h3>
+                   <h3>Notes for Article:  {{thisId}}</h3>
                     <span class="close" data-dismiss="modal" id="closewindow">&times;</span>
               </div>  <!-- end modal header -->
 
