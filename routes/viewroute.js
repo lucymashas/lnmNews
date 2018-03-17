@@ -107,7 +107,7 @@ module.exports = function(app) {
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles:id", function(req, res) {
   // Using the id passed in the id parameter
-    db.Headline.findOne({ _id:req.params.id} , function(err,data){
+    db.Headline.findOne(req.params.id , function(err,data){
       var hbsObject ={notes:data}
       res.render('saved',hbsObject);
     });
@@ -117,7 +117,7 @@ app.get("/articles:id", function(req, res) {
     app.post("/submitNote:id",function(req,res){
       db.Note.create(req.body)
         .then (function(dbNote){
-        db.Headline.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+        db.Headline.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
         })
         .then(function(dbHeadline) {
           res.redirect("/saved");
