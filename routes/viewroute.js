@@ -105,15 +105,18 @@ module.exports = function(app) {
 
 
 // Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles:id", function(req, res) {
+app.get("/articles/:id", function(req, res) {
   // Using the id passed in the id parameter
-    db.Headline.findOne(req.params.id)
+    db.Headline.findOne({_id:req.params.id})
     //mongoose populate notes
       .populate("note")
       .then(function(dbHeadline) {
       var hbsObject ={notes:data}
       res.render('saved',hbsObject);
-    });
+    })
+   .catch(function(err){
+     console.log("error message");
+   });
   });
 
 
