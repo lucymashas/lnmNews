@@ -4,11 +4,8 @@ $(document).on("click","#notesbtn",function(){
     var thisId = $("h3").attr("data-id");
     $.ajax({
       method: "GET",
-      url: "/articles/" + thisId
+      url: "/articles:" + thisId
     })
-    .then (function(data){
-      console.log(data);
-    }
 });
 
 //dismiss modal

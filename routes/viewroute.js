@@ -14,8 +14,22 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-  app.get("/", function(req, res) {
-    res.render("home");
+ // Route for getting all Articles from the db
+ app.get("/", function(req, res){
+  // Grab every document in the Articles collection
+  db.Headline.find({})
+    .then(function(data) {
+        var hbsObject = {items:data}
+        res.render('index', hbsObject);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+  app.get("/index", function(req, res) {
+    res.redirect("/");
   });
 
     //Scrape the bbc website for top stories
@@ -47,24 +61,12 @@ module.exports = function(app) {
               })
           }
         });
-        result.redirect('/home');
+        result.redirect("/");
       });
     });
   
 
-    // Route for getting all Articles from the db
-    app.get("/home", function(req, res){
-      // Grab every document in the Articles collection
-      db.Headline.find({})
-        .then(function(data) {
-            var hbsObject = {items:data}
-            res.render('home', hbsObject);
-        })
-        .catch(function(err) {
-          // If an error occurred, send it to the client
-          res.json(err);
-        });
-    });
+   
 
 //Route for getting all saved articles
     app.get("/saved",function(req,res){
@@ -100,27 +102,22 @@ module.exports = function(app) {
         res.redirect("/saved");
     });
 
+
+
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles:id", function(req, res) {
   // Using the id passed in the id parameter
-  db.Headline.findOne({ _id: req.params.id })
-    // ..and populate all of the notes associated with it
-    .populate("note")
-    .then(function(dbHeadline) {
-      res.json(dbHeadline);
-    })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-    })
+    db.Headline.findOne({ _id:req.params.id} , function(err,data){
+      var hbsObject ={notes:data}
+      res.render('saved',hbsObject);
+    });
   });
 
 
     app.post("/submitNote:id",function(req,res){
-      console.log(req.body);
       db.Note.create(req.body)
         .then (function(dbNote){
-          return db.Headline.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+        db.Headline.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
         })
         .then(function(dbHeadline) {
           res.redirect("/saved");
@@ -130,9 +127,6 @@ app.get("/articles:id", function(req, res) {
           res.json(err);
        });
 });
-
-
-
 
 // To Clean Out the db during testing
 

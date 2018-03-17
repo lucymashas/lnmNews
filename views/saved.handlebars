@@ -38,7 +38,8 @@
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                   <h3>Notes for Article:  {{thisId}}</h3>
+                
+                   <h3>Notes for Article:  {{this._id}}</h3>
                     <span class="close" data-dismiss="modal" id="closewindow">&times;</span>
               </div>  <!-- end modal header -->
 
@@ -46,7 +47,7 @@
              <div class="modal-body" id="displaynotes" > 
                   
                     <div id="prevnotes">No Previous Notes</div>
-
+                
                     <form action = "/submitNote{{this._id}}" method="post">
                         <div>
                           <textarea type="text" rows= 3 type="textarea" id="notesContainer" placeholder="Click here to enter note ..." value="notesinfo"></textarea>
