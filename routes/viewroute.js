@@ -5,6 +5,8 @@ var cheerio = require("cheerio");
 var mongojs = require("mongojs");
 var mongoose = require("mongoose");
 
+var ObjectId = require('mongodb').ObjectId;
+
 mongoose.Promise = Promise;
 
 mongoose.connect("mongodb://localhost/lnmNews");
@@ -103,45 +105,39 @@ module.exports = function(app) {
         res.redirect("/saved");
     });
 
-
-
-// Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
-  // Using the id passed in the id parameter
-    db.Headline.findOne({_id:req.params.id})
-    //mongoose populate notes
-      .populate("note")
-      .exec(function(err,data){
-      })
-    //   .then(function(data) {
-    //     console.log(data);
-    //     var hbsObject ={notes:data}
-    //     res.render('saved',hbsObject);
-    // })
-    // .catch(function(err){
-    //   console.log("error message" ,err);
-    //   });
-  });
-
-
-    app.post("/submitNote:id",function(req,res){
-      console.log(req.body);
-      db.Note.create(req.body)
-        .then (function(dbNote){
-          res.redirect("/saved");
-        })
-        .catch(function(err) {
-         // If an error occurred, send it to the client
-          res.json(err);
-       });
+//add note
+app.post("/submitNote:id",function(req,res){
+  db.Note.create(req.body)
+    .then (function(dbNote){
+      res.redirect("/saved");
+    })
+    .catch(function(err) {
+      res.json(err);
+   });
 });
+    
+    //get note 
+    app.get("/addnote/:id", function(req,res){
+      db.Note.find({articleid:req.params.id})
+        .then(function(data){
+            var hbsObject ={list:data};
+            console.log(hbsObject);
+            res.render('saved',hbsObject);
+        
+      }) 
+      .catch(function(err){
+        res.json(err);
+      });       
+    });
+
+
+
 
 // To Clean Out the db during testing
 
   app.get("/deleteAll", function(req, res) {
     db.Headline.remove({})
       .catch(function(err) {
-        // If an error occurred, send it to the client
         res.json(err);
       });
       console.log("completed");

@@ -29,10 +29,11 @@ h3{
   font-size: 1rem;
 }
 p{
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size:14px;
   color: #333333;
   padding:5px;
+  line-height:1.3;
 }
 .thumbnail{
   position: relative;
@@ -43,19 +44,22 @@ p{
   background-color: white;
 }
 .boxsize{
-  width: 254px;
-    height: 300px;
+    width: 254px;
+    height: 305px;
     margin: 10px;
 }
 
 /* buttons */
 .btn{
   color:#FAFBFB;
+  border-radius: 1px;
+  font-size: 12px;
 }
 .btnsm {
   line-height: 1.0;
-  border-radius: 1px;
-  font-size: 12px;
+}
+.btnlg{
+  line-height: 1.70;
 }
 .thumbnail .btnpos{
   position: absolute;
@@ -123,6 +127,13 @@ textarea {
   font-family: Lora,serif;
   font-weight: 400;
   font-style: normal;
+}
+input{
+  border:none;
+}
+a {
+  color: #495d94;
+  text-decoration: none;
 }
 input, select, textarea {
   font-size: 14px;

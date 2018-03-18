@@ -4,9 +4,10 @@ $(document).on("click","#notesbtn",function(){
     var thisId = $("h3").attr("data-id");
     $.ajax({
       method: "GET",
-      url: "/articles/" + thisId
-    })
-});
+      url: "/addnote/" + thisId
+    });
+  });
+
 
 //dismiss modal
 $('#saveNote').submit(function(event) {
