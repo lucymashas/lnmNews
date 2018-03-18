@@ -48,6 +48,9 @@ p{
     height: 305px;
     margin: 10px;
 }
+#alertmsg{
+  display:none;
+}
 
 /* buttons */
 .btn{

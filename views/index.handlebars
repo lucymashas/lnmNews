@@ -2,24 +2,31 @@
 {{>banner}}
   <div id="wrapper">
         <div class="container">
-            <h2>Top News Stories</h2>
+            <div id = "alertmsg" class="alert alert-danger alert-dismissable">{{message}}
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              </div>
             {{!-- <div class="content"> --}}
             <!-- News section -->
+            {{#if items}}
+            <h2>Top News Stories</h2>
                 <div class="row rowalign">
-                    {{#each items}}
-                    <div class="col-xs-2 boxsize">
+                        {{#each items}}
+                        <div class="col-xs-2 boxsize">
                             <div class="thumbnail">
-                                    <img src="{{img}}">
+                                <img src="{{img}}">
                                     <div class="caption" style='text-align: center'>
                                        <h3 data-id="{{_id}}"><a href='{{link}}' target="_blank">{{headline}}</a></h3>
                                        <p>{{summary}}</p></div>
                                      <form action="/saved{{this._id}}" method ="post">
-                                        <button class= "btn btnsm btn-primary btnpos" type="submit" value="{{this.isSaved}}" >SAVED ARTICLE</button>
+                                        <button class= "btn btnsm btn-primary btnpos" type="submit" id="savearticle" value="{{this.isSaved}}" >SAVED ARTICLE</button>
                                      </form>
                             </div>
-                    </div> 
-                    {{/each}}                 
+                        </div> 
+                        {{/each}}        
                 </div><!-- End row -->
+                {{else}}
+                        <h2>For the latest news stories, Click on the Scrape Articles Button</h2> 
+                    {{/if}}       
                 
             {{!-- </div> --}}
         </div>

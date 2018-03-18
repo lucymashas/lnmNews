@@ -9,59 +9,51 @@
           
             <div class="col-md-12 divarea">
                 <div class="header">
+                   
                    <h3 data-id="{{_id}}"><a href='{{link}}' target="_blank">{{headline}}</a></h3>
+
                     <div class="btn-group" role="group" aria-label="Button Group">
-                      {{!-- <div id="notesbtn"> --}}
                         <button type="button" class="btn btn-primary btnlg" data-toggle="modal" data-target="#notesModal-{{@index}}" id="notesbtn">Write A Note</button>
-                      {{!-- </div> --}}
-                     <!-- Notes Modal -->
-                      <div class="modal" id="notesModal-{{@index}}">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <form action = "/submitNote{{this._id}}" method="post">
-                                <div class="modal-header">
-                                    <label>Notes for Article: 
-                                       <input name="articleid"  value="{{this._id}}">
-                                    </label>
-                                      <span class="close" data-dismiss="modal" id="closewindow">&times;</span>
-                                </div>  <!-- end modal header -->
+                        <form action="/delete{{this._id}}" method="post">
+                        <button type="submit" class="btn warning btnlg">Delete Article</button>
+                        </form>
+                    </div> 
+                </div>
 
-                                    <!-- Display Notes Container -->
-                                <div class="modal-body" id="displaynotes" > 
-                                    {{#if list}}
-                                      {{#list list}}
-                                          <div class="row" id="prevnotes">{{this.note}}</div>
-                                        {{/list}}
-                                      {{else}}
-                                          <div id="prevnotes">No Previous Notes</div>
-                                    {{/if}}
-                                <div>
-
-                                <textarea type="text" rows= 3 type="textarea" id="notesContainer" placeholder="Click here to enter note ..." name="note"></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button data-id="{{this._id}}"type="submit" class="btn btn-primary btn-sm" id="articleid">SAVE NOTE</button>
-                                </div>
-                            </form>
-
-                                </div>{{!-- end of modal body --}}
-                            </div> <!-- end of modal content -->
-                        </div> <!-- end of modal dialog -->
-                      </div> {{!-- end of Modal --}}
+                <!-- Notes Modal -->
+                <div class="modal" id="notesModal-{{@index}}">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
                       
-                      <form action="/delete{{this._id}}" method="post">
-                          <button type="submit" class="btn warning btnlg">Delete Article</button>
+                      <form action = "/submitNote{{this._id}}" method="post">
+                          <div class="modal-header">
+                              <label>Notes for Article: 
+                                  <input name="articleid"  value="{{this._id}}">
+                              </label>
+                                <span class="close" data-dismiss="modal" id="closewindow">&times;</span>
+                          </div>
+
+                              <!-- Display Notes Container -->
+                          <div class="modal-body" id="displaynotes" > 
+                            {{>notescontainer}}
+                          
+                            <textarea type="text" rows= 3 type="textarea" id="notesContainer" placeholder="Click here to enter note ..." name="note"></textarea>
+                          </div>
+                          
+                          <div class="modal-footer">
+                              <button data-id="{{this._id}}"type="submit" class="btn btn-primary btn-sm" id="articleid">SAVE NOTE</button>
+                          </div>
                       </form>
 
-                    </div>
-                </div>
+                      </div> <!-- end of modal content -->
+                  </div> <!-- end of modal dialog -->
+                </div> {{!-- end of Modal --}}
                     <p>{{summary}}</p>
-            </div>  
-                            
+              </div>                
           </div><!-- End row -->
         {{/each}}  
-      </div>
-
+      
+      </div> 
     </div>{{!-- end of container div --}}
   </div>{{!-- end of wrapper --}}
 

@@ -8,6 +8,11 @@ $(document).on("click","#notesbtn",function(){
     });
   });
 
+  $(document).on("click","#savearticle",function(){
+    $("#alertmsg").css("display","block");
+    $("#alertmsg").append("The Article Has Been Saved.");
+    $("#").css("border","1px solid red")
+});
 
 //dismiss modal
 $('#saveNote').submit(function(event) {
