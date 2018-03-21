@@ -1,0 +1,53 @@
+//scraping modules
+var request = require("request");
+var cheerio = require("cheerio");
+
+var mongojs = require("mongojs");
+var mongoose = require("mongoose");
+
+var ObjectId = require('mongodb').ObjectId;
+
+mongoose.Promise = Promise;
+
+mongoose.connect("mongodb://localhost/lnmNews");
+
+//Require db model
+var db = require("../models");
+
+module.exports = function(app) {
+  
+    //Scrape the bbc website for top stories
+    app.post("/scrape",function(req,result){
+        request("http://www.bbc.com/news",function(error,res,html){
+
+          var $=cheerio.load(html);
+          
+          $(".gs-c-promo").each(function(i,element){
+            var image=$(this).find(".gs-o-responsive-image img").attr("data-src");
+            if (!image){
+              image=('assets/images/image-placeholder.png');
+            }
+            var link= $(this).find(".gs-c-promo-body a").attr("href");
+            var heading= $(this).find(".gs-c-promo-heading__title").text();
+            var summary= $(this).find(".gs-c-promo-summary").text();
+          //replacing {width} in the image string
+          image = image.replace("{width}",240);
+          link = "http://www.bbc.com/" + link;
+
+        // Pass the data into a Handlebars object and then render it
+          var article = {headline:heading,link:link,summary:summary,img:image}
+            if (heading && link && summary){
+              db.Headline.create(article)
+                .then(function(dbHeadline){
+                })
+                .catch(function(err){
+                  // return res.json(err);
+                  console.log(err.message);
+                })
+            }
+          });
+          result.redirect("/");
+        });
+      });
+}
+
