@@ -2,9 +2,6 @@
 var request = require("request");
 var cheerio = require("cheerio");
 
-var mongojs = require("mongojs");
-var mongoose = require("mongoose");
-
 var ObjectId = require('mongodb').ObjectId;
 
 // mongoose.connect("mongodb://localhost/lnmNews");
