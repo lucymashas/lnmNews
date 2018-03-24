@@ -19,9 +19,6 @@ mongoose.connect(MONGODB_URI, {
   useMongoClient: true
 });
 
-	// Serve static content for the app from the "public" directory
-  app.use(express.static("./public"));
-
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
   extended: false
